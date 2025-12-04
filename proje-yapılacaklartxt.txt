@@ -1,0 +1,105 @@
+ Her adım **Next.js 16 + Jest + RTL** ile uyumlu olacak.
+
+---
+
+## 🚀 Proje Roadmap: `NextTestPlayground`
+
+### **1️⃣ Giriş Formu (Login / Sign-up)**
+
+**Amaç:** Temel akışı kurmak ve test pratiği yapmak.
+
+* **Componentler:**
+
+  * `LoginForm.tsx`
+  * `SignUpForm.tsx`
+* **Fonksiyonellik:**
+
+  * Form validation (required, email format, password min length)
+  * Submit event → mock API çağrısı (MSW ile)
+  * Success / error feedback
+* **Testler:**
+
+  * Unit test: validation fonksiyonları (`isEmailValid`, `isPasswordStrong`)
+  * Component test:
+
+    * Input render oluyor mu
+    * Submit butonu click edildiğinde mock API çağrılıyor mu
+    * Hatalı input’da error mesajı gösteriliyor mu
+
+---
+
+### **2️⃣ Dashboard Placeholder**
+
+**Amaç:** Girişten sonra yönlendirme ve UI test pratiği.
+
+* **Componentler:**
+
+  * `Dashboard.tsx`
+  * `Navbar.tsx`
+  * `Sidebar.tsx` (opsiyonel)
+* **Fonksiyonellik:**
+
+  * Kullanıcı giriş yaptıktan sonra gösterilecek ana ekran
+  * Giriş formundan veri alıp gösterecek placeholder alan
+* **Testler:**
+
+  * Component test: render, visibility, navbar / sidebar elementleri mevcut mu
+  * Integration test: login form → dashboard flow
+
+---
+
+### **3️⃣ Modüler Feature’lar (Notlar / Görevler)**
+
+**Amaç:** 2. projeye bağlanacak modüler yapı.
+
+* **Componentler:**
+
+  * `NotesList.tsx`
+  * `NoteItem.tsx`
+  * `AddNoteForm.tsx`
+* **Fonksiyonellik:**
+
+  * CRUD (Create / Read / Delete) – mock API ile
+  * Basit state management (React context veya useState yeterli)
+* **Testler:**
+
+  * Unit test: helper fonksiyonlar (e.g., `addNote`, `deleteNote`)
+  * Component test: list render, item click/delete, form submit
+
+---
+
+### **4️⃣ MSW ile API Mocking**
+
+**Amaç:** Gerçek API yokken güvenli test yapmak ve async flow’u test etmek.
+
+* **Setup:**
+
+  * `mocks/handlers.ts`
+  * `mocks/server.ts`
+* **Kapsam:**
+
+  * Login / signup
+  * Notes CRUD
+  * Dashboard veri fetch
+
+---
+
+### **5️⃣ Deployment ve Portfolyo Hazırlığı**
+
+* Vercel deploy (Next.js 16 tam destekli)
+* README.md: test talimatları + proje açıklaması
+* Jest coverage raporu ekle
+
+---
+
+💡 **Önerilen Sıralama:**
+
+1. LoginForm + test → temel flow
+2. Dashboard + test → giriş akışı tamam
+3. Notes module + test → modüler yapı hazır
+4. MSW → tüm async flow testlerini güvenli hale getir
+5. Deploy & portfolyo
+
+---
+
+Kasım, sana soruyorum: Bu roadmap’e bağlı kalıp **adım adım ilerleyeceğiz**. 
