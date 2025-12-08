@@ -1,18 +1,32 @@
-const nextJest = require('next/jest')
- 
-/** @type {import('jest').Config} */
+// jest.config.js
+const nextJest = require('next/jest');
+
 const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: './',
-})
- 
-// Add any custom config to be passed to Jest
-const config = {
-  coverageProvider: 'v8',
+});
+
+const customJestConfig = {
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.js',
+    '<rootDir>/mocks/setup-tests.ts',
+  ],
+
   testEnvironment: 'jsdom',
-  // Add more setup options before each test is run
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-}
- 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(config)
+
+  // ESM paketleri için transform yapılsın
+  transformIgnorePatterns: [
+    'node_modules/(?!(msw|@mswjs|until-async|graphql|cookie-es|strict-event-emitter)/)',
+  ],
+};
+
+// ASYNC wrapper - Next.js'in config'ini override etmek için
+module.exports = async (...args) => {
+  const config = await createJestConfig(customJestConfig)(...args);
+
+  // Next.js'in transformIgnorePatterns'ını eziyoruz
+  config.transformIgnorePatterns = [
+    '/node_modules/(?!(msw|@mswjs|until-async|graphql|cookie-es|strict-event-emitter)/)',
+  ];
+
+  return config;
+};

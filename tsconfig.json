@@ -31,6 +31,6 @@
   ".next/dev/types/**/*.ts",
   "**/*.mts",
   "**/*.test.tsx"
-],
+, "jest.msw.config.js", "mocks/msw-node-force.js"],
   "exclude": ["node_modules"]
 }
