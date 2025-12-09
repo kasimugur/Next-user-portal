@@ -1,6 +1,7 @@
+'use client'
 import { isEmailValid, isPasswordStrong } from '@/utils/validation';
 import React, { useState } from 'react'
-
+import { flushSync } from 'react-dom';
 
 interface LoginFormProps {
   onSubmit: (data: { email: string; password: string }) => void;
@@ -17,7 +18,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     if (!email) return setError("Email gerekli")
     if (!isEmailValid(email)) return setError("Geçerli bir email değil")
     if (!isPasswordStrong(password)) return setError("Şifre gerekli")
-
+ 
     setError("")
 
     try {
@@ -33,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
       if (!data.success) {
         console.log('❌ Setting error:', data.message);
-        setError(data.message);
+        flushSync(() => setError(data.message)); // ← flushSync ekle
         return;
       }
 
@@ -79,7 +80,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition active:scale-[0.98]"
           >
-            Login
+            Giriş yap
           </button>
         </form>
       </div>
