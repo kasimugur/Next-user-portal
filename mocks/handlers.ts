@@ -30,4 +30,22 @@ export const handlers = [
       { status: 401 }
     );
   }),
+  
+  http.post("/api/signup", async ({ request }) => {
+    const body = (await request.json()) as { email?: string; password?: string };
+    const { email, password } = body;
+
+    // Basit iş kuralları (test amaçlı)
+    if (!email || !password) {
+      return HttpResponse.json({ success: false, message: "Eksik alan" }, { status: 400 });
+    }
+
+    // örnek: aynı email tekrar kayıt olamaz (test senaryosu)
+    if (email === "exists@test.com") {
+      return HttpResponse.json({ success: false, message: "Email zaten kayıtlı" }, { status: 409 });
+    }
+
+    // başarılı kayıt
+    return HttpResponse.json({ success: true, token: "signup-mock-token" }, { status: 201 });
+  }),
 ];

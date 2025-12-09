@@ -1,7 +1,8 @@
 export const isEmailValid= (email:string)=>{
-  return email.includes("@") && email.includes(".")
-}
+  return  typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
 
 export const isPasswordStrong = (password: string) => {
-  return password.length >= 6;
+  return typeof password === "string" && password.length >= 6;
 }

@@ -21,5 +21,15 @@ test("Şifre en az 6 karakter olmalı", () => {
   expect(isPasswordStrong("123")).toBe(false);
 });
 
+test("isEmailValid doğru e-mailleri kabul eder", () => {
+  expect(isEmailValid("a@b.com")).toBe(true);
+  expect(isEmailValid("invalid")).toBe(false);
+});
+
+test("isPasswordStrong en az 6 karakter kontrolü", () => {
+  expect(isPasswordStrong("123456")).toBe(true);
+  expect(isPasswordStrong("123")).toBe(false);
+});
+
 })
 
