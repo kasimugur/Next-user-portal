@@ -13,7 +13,7 @@ const LoginPage = () => {
   return (
     <LoginForm
       onSubmit={(data) => {
-    flushSync(() => {
+        flushSync(() => {
           setUser({ email: data.email });
         });
       }}
