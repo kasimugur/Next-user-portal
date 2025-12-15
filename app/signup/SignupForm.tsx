@@ -2,6 +2,7 @@
 'use client'
 import React, { useState } from "react";
 import { isEmailValid, isPasswordStrong } from "../../utils/validation";
+import { signup } from "@/services/authService";
 
 interface SignupFormProps {
   onSubmit?: (data: { email: string; password: string }) => void;
@@ -25,12 +26,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit }) => {
     setError("");
 
     try {
-      const res = await fetch("/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
+      const data = await signup({ email, password, passwordConfirm });;
 
       if (!data.success) {
         setError(data.message || "Kayıt başarısız");

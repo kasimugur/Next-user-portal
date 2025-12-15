@@ -1,4 +1,5 @@
 'use client'
+import { login } from '@/services/authService';
 import { isEmailValid, isPasswordStrong } from '@/utils/validation';
 import React, { useState } from 'react'
 import { flushSync } from 'react-dom';
@@ -18,18 +19,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     if (!email) return setError("Email gerekli")
     if (!isEmailValid(email)) return setError("Geçerli bir email değil")
     if (!isPasswordStrong(password)) return setError("Şifre gerekli")
- 
+
     setError("")
 
     try {
       // MSW tarafından yakalanabilir fetch çağrısı
-      const res = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const data = await login({ email, password });;
 
-      const data = await res.json();
       console.log('📦 Response data:', data);
 
       if (!data.success) {
